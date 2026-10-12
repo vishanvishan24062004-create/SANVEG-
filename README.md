@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIPZO SANVEG | Luxury Cafe & Roastery Digital Menu</title>
+  
+  <!-- Google Fonts: Cinzel Decorative, Montserrat & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome 6 icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- QRCode.js library for fast offline-capable QR generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            onyx: {
+              950: '#070709',
+              900: '#0e0e11',
+              850: '#141418',
+              800: '#1a1a21',
+              700: '#262631',
+              600: '#383846'
+            },
+            gold: {
+              300: '#f7e7b4',
+              400: '#e5c365',
+              500: '#d4af37',
+              600: '#b89428',
+              700: '#8c6f1a',
+              glow: 'rgba(212, 175, 55, 0.25)'
+            }
+          },
+          fontFamily: {
+            brand: ['"Cinzel"', 'serif'],
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Montserrat"', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'gold-sm': '0 2px 10px rgba(212, 175, 55, 0.15)',
+            'gold-md': '0 4px 20px rgba(212, 175, 55, 0.22)',
+            'gold-lg': '0 8px 30px rgba(212, 175, 55, 0.35)',
+            'inner-gold': 'inset 0 0 15px rgba(212, 175, 55, 0.2)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Gold Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0e0e11;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #b89428;
+      border-radius: 9999px;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Metallic Gold Text Gradient */
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #f7e7b4 0%, #d4af37 50%, #aa841c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gold-gradient-bg {
+      background: linear-gradient(135deg, #e5c365 0%, #d4af37 60%, #b89428 100%);
+    }
+
+    .gold-border-glow {
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+      border-color: rgba(212, 175, 55, 0.35);
+    }
+
+    @keyframes pulse-gold {
+      0%, 100% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+    .pulse-glow {
+      animation: pulse-gold 3s infinite ease-in-out;
+    }
+
+    /* Print styles for QR table tent standee */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printableQrCard, #printableQrCard * {
+        visibility: visible;
+      }
+      #printableQrCard {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1.1);
+        width: 100%;
+        max-width: 420px;
+        box-shadow: none !important;
+        border: 2px solid #b89428 !important;
+        background: #000000 !important;
+        color: #ffffff !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-onyx-950 text-neutral-100 font-sans antialiased min-h-screen flex flex-col selection:bg-gold-500 selection:text-onyx-950">
+
+  <header class="sticky top-0 z-40 bg-onyx-900/95 backdrop-blur-md border-b border-gold-500/20 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      
+      <!-- Brand Logo & Emblem -->
+      <div class="flex items-center gap-3 cursor-pointer group" onclick="switchView('menu')">
+        <!-- SVG Emblem recreation matching brand logo -->
+        <div class="w-11 h-11 rounded-full p-0.5 bg-gradient-to-br from-gold-300 via-gold-500 to-gold-700 flex items-center justify-center shadow-gold-sm group-hover:shadow-gold-md transition duration-300">
+          <div class="w-full h-full bg-onyx-900 rounded-full flex items-center justify-center p-1">
+            <svg viewBox="0 0 100 100" class="w-7 h-7 text-gold-400 fill-current drop-shadow">
+              <!-- Water droplet at top -->
+              <path d="M50 12 C50 12 36 28 36 37 C36 45 42.5 50 50 50 C57.5 50 64 45 64 37 C64 28 50 12 50 12 Z M50 22 C53 28 57 33 57 37 C57 41 54 44 50 44 C46 44 43 41 43 37 C43 33 47 28 50 22 Z"/>
+              <!-- Swirl crema & bottom droplet curves -->
+              <path d="M48 54 C34 54 22 66 22 80 C22 92 34 98 48 98 C62 98 74 90 74 76 C74 65 67 58 56 58 C47 58 40 64 40 73 C40 80 46 84 52 84 C56 84 59 81 59 77 C59 73 56 71 53 71 C51 71 49 72 49 74 C49 75 50 76 51 76 C49 76 47 74 47 72 C47 68 51 65 55 65 C61 65 66 70 66 77 C66 86 57 91 48 91 C38 91 30 84 30 76 C30 67 38 60 48 60 C53 60 59 62 62 65 C64 61 62 57 58 55 C55 54 51 54 48 54 Z"/>
+              <!-- Side leaf petal motif -->
+              <path d="M68 60 C65 63 64 67 65 72 C69 70 72 65 71 61 C70 59 69 59 68 60 Z"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="leading-tight">
+          <div class="flex items-center gap-2">
+            <span class="font-brand font-bold text-lg sm:text-xl tracking-widest gold-gradient-text uppercase">SIPZO</span>
+            <span class="font-brand font-semibold text-xs sm:text-sm tracking-wider text-gold-300">SANVEG</span>
+          </div>
+          <p class="text-[10px] sm:text-[11px] font-display italic tracking-wide text-gold-400/80 -mt-0.5">Take a sip and then repeat it</p>
+        </div>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Table QR Modal Launcher -->
+        <button onclick="openQrModal()" class="px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs rounded-xl bg-onyx-800 border border-gold-500/30 hover:border-gold-400 text-gold-300 transition flex items-center gap-1.5 shadow-sm" title="Generate Standee QR Code">
+          <i class="fa-solid fa-qrcode text-gold-400"></i>
+          <span class="hidden sm:inline font-medium">Table QR</span>
+        </button>
+
+        <!-- Tray / Order Review Button -->
+        <button onclick="openCartModal()" class="relative px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs rounded-xl gold-gradient-bg text-onyx-950 font-semibold transition flex items-center gap-2 shadow-gold-sm hover:brightness-105 active:scale-95">
+          <i class="fa-solid fa-bell-concierge"></i>
+          <span class="hidden sm:inline font-bold">Tray</span>
+          <span id="cartCountBadge" class="bg-onyx-950 text-gold-400 text-[10px] px-1.5 py-0.2 rounded-full font-bold border border-gold-500/50">0</span>
+        </button>
+
+        <!-- Admin View Switcher -->
+        <button id="adminToggleBtn" onclick="toggleAdminAuthModal()" class="px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs bg-onyx-800 border border-gold-500/30 hover:border-gold-400 text-neutral-300 rounded-xl transition flex items-center gap-1.5">
+          <i class="fa-solid fa-key text-gold-400"></i>
+          <span id="adminToggleText" class="font-medium">Admin</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="customerView" class="flex-grow max-w-6xl w-full mx-auto px-4 py-4 sm:py-6">
+    
+    <!-- Hero Brand Banner -->
+    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-onyx-900 via-onyx-850 to-onyx-900 border border-gold-500/30 p-6 sm:p-8 mb-6 shadow-2xl">
+      <div class="absolute -right-6 -bottom-6 opacity-10 text-9xl text-gold-500 pointer-events-none">
+        <i class="fa-solid fa-mug-saucer"></i>
+      </div>
+      <div class="relative z-10 max-w-2xl">
+        <div class="inline-flex items-center gap-2 text-[11px] font-semibold tracking-wider text-gold-400 uppercase bg-gold-500/10 border border-gold-500/30 px-3 py-1 rounded-full mb-3">
+          <i class="fa-solid fa-crown text-[10px]"></i> Artisan Roasts & Signature Dining
+        </div>
+        <h1 class="font-brand text-2xl sm:text-4xl font-extrabold tracking-wide gold-gradient-text uppercase mb-2">
+          SIPZO SANVEG
+        </h1>
+        <p class="font-display italic text-gold-300 text-base sm:text-lg mb-3">
+          “Take a sip and then repeat it”
+        </p>
+        <p class="text-neutral-300 text-xs sm:text-sm font-light leading-relaxed max-w-xl mb-4">
+          Indulge in roasted single-origin coffees, chilled mocktails, decadent thickshakes, and gourmet fast bites prepared fresh on order.
+        </p>
+        <div class="flex flex-wrap items-center gap-4 text-xs text-neutral-400">
+          <div class="flex items-center gap-1.5"><i class="fa-regular fa-clock text-gold-400"></i> 9:00 AM – Midnight</div>
+          <div class="flex items-center gap-1.5"><i class="fa-solid fa-wifi text-gold-400"></i> WiFi: SIPZO_Guest</div>
+          <div class="flex items-center gap-1.5 text-gold-400"><i class="fa-solid fa-shield-halved"></i> 100% Pure Veg Available</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Pills & Search Row -->
+    <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 mb-5">
+      <!-- Search Input -->
+      <div class="relative flex-grow max-w-md">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 text-xs"></i>
+        <input 
+          type="text" 
+          id="searchInput" 
+          oninput="handleSearch()"
+          placeholder="Search espresso, pizza, mojito, shake..."
+          class="w-full pl-9 pr-9 py-2.5 rounded-xl border border-gold-500/25 bg-onyx-900 text-xs sm:text-sm text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400 transition"
+        />
+        <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-gold-400">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 hide-scrollbar" id="categoryPillContainer">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- Tag & Dietary Filter Bar -->
+    <div class="flex items-center justify-between flex-wrap gap-2 mb-6 bg-onyx-900/80 p-2.5 rounded-xl border border-gold-500/20 text-xs">
+      <div class="flex items-center gap-1.5 text-neutral-300 font-medium">
+        <i class="fa-solid fa-sliders text-gold-400"></i> Tags:
+      </div>
+      <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar">
+        <button onclick="toggleTagFilter('all')" class="tag-filter-btn px-2.5 py-1 rounded-lg bg-gold-500 text-onyx-950 font-bold transition" data-tag="all">All</button>
+        <button onclick="toggleTagFilter('Veg')" class="tag-filter-btn px-2.5 py-1 rounded-lg bg-onyx-800 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-950/40 transition" data-tag="Veg">
+          <i class="fa-solid fa-leaf text-[9px] mr-1"></i>Veg
+        </button>
+        <button onclick="toggleTagFilter('Bestseller')" class="tag-filter-btn px-2.5 py-1 rounded-lg bg-onyx-800 text-amber-300 border border-amber-500/30 hover:bg-amber-950/40 transition" data-tag="Bestseller">
+          <i class="fa-solid fa-fire text-[9px] mr-1"></i>Bestseller
+        </button>
+        <button onclick="toggleTagFilter('Chef Special')" class="tag-filter-btn px-2.5 py-1 rounded-lg bg-onyx-800 text-purple-300 border border-purple-500/30 hover:bg-purple-950/40 transition" data-tag="Chef Special">
+          <i class="fa-solid fa-star text-[9px] mr-1"></i>Chef Special
+        </button>
+      </div>
+      <div id="itemsCountDisplay" class="text-neutral-400 text-[11px] font-medium">Showing all items</div>
+    </div>
+
+    <!-- Menu Cards Grid -->
+    <div id="menuGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
+      <!-- Populated via renderMenu() -->
+    </div>
+
+    <!-- Zero Results State -->
+    <div id="noResultsState" class="hidden text-center py-16 px-4 bg-onyx-900 rounded-2xl border border-gold-500/20 shadow-lg">
+      <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-onyx-800 border border-gold-500/30 flex items-center justify-center text-gold-400 text-2xl">
+        <i class="fa-solid fa-mug-hot"></i>
+      </div>
+      <h3 class="font-brand text-lg font-bold text-gold-300 mb-1">No Delicacy Found</h3>
+      <p class="text-xs text-neutral-400 max-w-sm mx-auto mb-4">Try clearing your search query or selecting a different menu category.</p>
+      <button onclick="resetFilters()" class="px-4 py-2 gold-gradient-bg text-onyx-950 font-bold rounded-xl text-xs hover:brightness-110 transition">
+        Reset All Filters
+      </button>
+    </div>
+  </main>
+
+  <main id="adminView" class="hidden flex-grow max-w-6xl w-full mx-auto px-4 py-6">
+    
+    <!-- Admin Header Bar -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-onyx-900 p-5 rounded-2xl border border-gold-500/30 shadow-xl mb-6">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <h2 class="font-brand font-bold text-xl sm:text-2xl text-gold-300 tracking-wider">SIPZO SANVEG Admin Suite</h2>
+        </div>
+        <p class="text-xs text-neutral-400 mt-0.5">Manage live cafe menu items, prices, dietary badges, and stock availability.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <button onclick="openAddItemModal()" class="px-3.5 py-2 gold-gradient-bg text-onyx-950 font-bold rounded-xl text-xs sm:text-sm flex items-center gap-2 shadow hover:brightness-110 transition">
+          <i class="fa-solid fa-plus"></i> Add Item
+        </button>
+        <button onclick="exportMenuData()" class="px-3 py-2 bg-onyx-800 hover:bg-onyx-700 text-gold-300 rounded-xl text-xs border border-gold-500/30 transition" title="Export Menu Backup">
+          <i class="fa-solid fa-download mr-1"></i> Export
+        </button>
+        <label class="px-3 py-2 bg-onyx-800 hover:bg-onyx-700 text-gold-300 rounded-xl text-xs border border-gold-500/30 transition cursor-pointer" title="Import Menu JSON">
+          <i class="fa-solid fa-upload mr-1"></i> Import
+          <input type="file" id="importJsonInput" accept=".json" onchange="importMenuData(event)" class="hidden">
+        </label>
+        <button onclick="openSettingsModal()" class="px-3 py-2 bg-onyx-800 text-neutral-200 hover:text-gold-300 rounded-xl text-xs border border-gold-500/30 transition" title="Admin Settings">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+        <button onclick="logoutAdmin()" class="px-3 py-2 bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 rounded-xl text-xs border border-rose-500/40 transition">
+          <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> Exit
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Metric Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+      <div class="bg-onyx-900 p-4 rounded-xl border border-gold-500/20">
+        <p class="text-[11px] text-neutral-400 uppercase font-semibold">Total Menu Items</p>
+        <p id="adminStatTotal" class="text-2xl font-bold font-brand text-gold-300 mt-1">0</p>
+      </div>
+      <div class="bg-onyx-900 p-4 rounded-xl border border-gold-500/20">
+        <p class="text-[11px] text-neutral-400 uppercase font-semibold">Available Live</p>
+        <p id="adminStatAvailable" class="text-2xl font-bold font-brand text-emerald-400 mt-1">0</p>
+      </div>
+      <div class="bg-onyx-900 p-4 rounded-xl border border-gold-500/20">
+        <p class="text-[11px] text-neutral-400 uppercase font-semibold">Sold Out / Hidden</p>
+        <p id="adminStatSoldOut" class="text-2xl font-bold font-brand text-rose-400 mt-1">0</p>
+      </div>
+      <div class="bg-onyx-900 p-4 rounded-xl border border-gold-500/20">
+        <p class="text-[11px] text-neutral-400 uppercase font-semibold">Active Categories</p>
+        <p id="adminStatCategories" class="text-2xl font-bold font-brand text-gold-400 mt-1">4</p>
+      </div>
+    </div>
+
+    <!-- Admin Filter & Search Tool -->
+    <div class="bg-onyx-900 p-4 rounded-2xl border border-gold-500/20 shadow-md mb-6 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div class="relative w-full md:w-80">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-xs"></i>
+        <input 
+          type="text" 
+          id="adminSearchInput" 
+          oninput="renderAdminItems()"
+          placeholder="Filter admin items table..."
+          class="w-full pl-9 pr-3 py-2 text-xs rounded-lg border border-gold-500/20 bg-onyx-800 text-neutral-100 focus:outline-none focus:border-gold-400"
+        />
+      </div>
+      <div class="flex items-center gap-2 w-full md:w-auto">
+        <select id="adminCategoryFilter" onchange="renderAdminItems()" class="text-xs px-3 py-2 rounded-lg border border-gold-500/20 bg-onyx-800 text-gold-300 font-medium focus:outline-none">
+          <option value="all">All Categories</option>
+          <option value="Artisan Coffee">Artisan Coffee</option>
+          <option value="Beverages & Coolers">Beverages & Coolers</option>
+          <option value="Fast Food & Bites">Fast Food & Bites</option>
+          <option value="Desserts & Shakes">Desserts & Shakes</option>
+        </select>
+        <select id="adminStockFilter" onchange="renderAdminItems()" class="text-xs px-3 py-2 rounded-lg border border-gold-500/20 bg-onyx-800 text-gold-300 font-medium focus:outline-none">
+          <option value="all">All Stock Status</option>
+          <option value="available">In Stock Only</option>
+          <option value="soldout">Sold Out Only</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Admin Table Container -->
+    <div class="bg-onyx-900 rounded-2xl border border-gold-500/25 shadow-xl overflow-hidden mb-12">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-onyx-850 text-gold-300 font-brand uppercase tracking-wider border-b border-gold-500/20">
+            <tr>
+              <th class="py-3 px-4">Item Details</th>
+              <th class="py-3 px-4">Category</th>
+              <th class="py-3 px-4">Price</th>
+              <th class="py-3 px-4 text-center">Status</th>
+              <th class="py-3 px-4 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody" class="divide-y divide-onyx-800 text-neutral-200">
+            <!-- Populated via renderAdminItems() -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div id="qrModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-onyx-900 max-w-sm w-full rounded-3xl p-6 text-center shadow-2xl border border-gold-500/40 relative">
+      <button onclick="closeQrModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-gold-400 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gold-500/10 text-gold-400 mb-2 border border-gold-500/30">
+        <i class="fa-solid fa-qrcode text-xl"></i>
+      </div>
+      
+      <h3 class="font-brand text-lg font-bold text-gold-300 uppercase tracking-wider">Cafe Table QR Standee</h3>
+      <p class="text-xs text-neutral-400 mb-4">Print or place this on table tops for guests to scan and view the digital menu.</p>
+
+      <!-- Table Selection for Standee -->
+      <div class="mb-3 flex items-center justify-center gap-2">
+        <span class="text-xs text-gold-400 font-medium">Standee For:</span>
+        <select id="qrTableSelector" onchange="generateQrCodeForTable()" class="bg-onyx-800 border border-gold-500/30 rounded-lg text-xs px-2 py-1 text-neutral-200 font-medium focus:outline-none">
+          <option value="General">All Tables (General)</option>
+          <option value="Table 1">Table 1</option>
+          <option value="Table 2">Table 2</option>
+          <option value="Table 3">Table 3</option>
+          <option value="Table 4">Table 4</option>
+          <option value="Table 5">Table 5</option>
+          <option value="Takeaway Counter">Takeaway Counter</option>
+        </select>
+      </div>
+
+      <!-- Printable QR Standee Card Component -->
+      <div id="printableQrCard" class="bg-onyx-950 p-5 rounded-2xl border-2 border-gold-500/40 shadow-inner flex flex-col items-center justify-center mx-auto mb-4 relative">
+        <div class="flex items-center gap-1.5 mb-1">
+          <div class="w-5 h-5 rounded-full p-0.5 bg-gold-500 flex items-center justify-center">
+            <svg viewBox="0 0 100 100" class="w-3.5 h-3.5 text-onyx-950 fill-current">
+              <path d="M50 12 C50 12 36 28 36 37 C36 45 42.5 50 50 50 C57.5 50 64 45 64 37 C64 28 50 12 50 12 Z"/>
+            </svg>
+          </div>
+          <span class="font-brand font-bold text-xs tracking-widest text-gold-300 uppercase">SIPZO SANVEG</span>
+        </div>
+        <p class="font-display italic text-[10px] text-gold-400/90 mb-3">“Take a sip and then repeat it”</p>
+        
+        <div id="qrcodeCanvasContainer" class="bg-white p-3 rounded-xl shadow-md border border-neutral-300 flex items-center justify-center"></div>
+        
+        <div id="qrStandeeTableLabel" class="text-xs font-bold text-gold-400 mt-2 font-brand">Tabletop Self-Order</div>
+        <p class="text-[10px] text-neutral-400 mt-0.5">Scan to view delicacies & order</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="printQrStandee()" class="px-3 py-2 bg-onyx-800 hover:bg-onyx-700 border border-gold-500/30 text-gold-300 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+          <i class="fa-solid fa-print"></i> Print Standee
+        </button>
+        <button onclick="copyMenuUrl()" class="px-3 py-2 gold-gradient-bg text-onyx-950 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition hover:brightness-110">
+          <i class="fa-solid fa-link"></i> Copy URL
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cartModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-onyx-900 max-w-md w-full rounded-3xl p-6 shadow-2xl border border-gold-500/40 relative flex flex-col max-h-[90vh]">
+      
+      <!-- Cart Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-gold-500/20 mb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-gold-500/10 text-gold-400 border border-gold-500/30 flex items-center justify-center">
+            <i class="fa-solid fa-bell-concierge"></i>
+          </div>
+          <div>
+            <h3 class="font-brand font-bold text-gold-300 text-base">Your Order Tray</h3>
+            <p class="text-[11px] text-neutral-400">Review selected coffee, drinks & eats</p>
+          </div>
+        </div>
+        <button onclick="closeCartModal()" class="text-neutral-400 hover:text-gold-400 p-1 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Table Selection & Notes -->
+      <div class="mb-3 bg-onyx-800/80 p-2.5 rounded-xl border border-gold-500/20 space-y-2">
+        <div class="flex items-center gap-2">
+          <label for="tableNumberSelect" class="text-xs font-semibold text-gold-400 whitespace-nowrap">
+            <i class="fa-solid fa-chair mr-1"></i> Table #:
+          </label>
+          <select id="tableNumberSelect" class="bg-onyx-900 border border-gold-500/30 rounded-lg text-xs px-2.5 py-1 text-neutral-200 font-semibold focus:outline-none flex-grow">
+            <option value="Table 1">Table 01</option>
+            <option value="Table 2">Table 02</option>
+            <option value="Table 3">Table 03</option>
+            <option value="Table 4">Table 04</option>
+            <option value="Table 5">Table 05</option>
+            <option value="Table 6">Table 06</option>
+            <option value="Table 7">Table 07</option>
+            <option value="Table 8">Table 08</option>
+            <option value="Takeaway Counter">Takeaway Counter</option>
+          </select>
+        </div>
+        <input 
+          type="text" 
+          id="orderSpecialNote" 
+          placeholder="Special requests (e.g., extra hot, less sugar, no ice)..." 
+          class="w-full text-xs bg-onyx-900 border border-gold-500/25 rounded-lg px-2.5 py-1.5 text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-gold-400"
+        />
+      </div>
+
+      <!-- Items List -->
+      <div id="cartItemsList" class="flex-grow overflow-y-auto divide-y divide-onyx-800 my-1 pr-1 max-h-56">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="cartEmptyPlaceholder" class="hidden text-center py-8">
+        <i class="fa-solid fa-mug-saucer text-3xl text-gold-500/30 mb-2"></i>
+        <p class="text-sm text-neutral-300 font-medium">Your order tray is currently empty.</p>
+        <p class="text-xs text-neutral-500">Pick signature coffees, sips & fast food from the menu!</p>
+      </div>
+
+      <!-- Tray Calculations -->
+      <div id="cartSummarySection" class="pt-3 border-t border-gold-500/20 mt-2 space-y-1 text-xs">
+        <div class="flex justify-between text-neutral-400">
+          <span>Subtotal:</span>
+          <span id="cartSubtotal" class="font-medium text-neutral-200">₹0</span>
+        </div>
+        <div class="flex justify-between text-neutral-400">
+          <span>GST / Cafe Tax (approx 5%):</span>
+          <span id="cartTax" class="font-medium text-neutral-200">₹0</span>
+        </div>
+        <div class="flex justify-between text-sm font-bold text-gold-300 pt-1.5 border-t border-dashed border-gold-500/25 font-brand">
+          <span>Grand Total:</span>
+          <span id="cartGrandTotal" class="text-base text-gold-400 font-extrabold">₹0</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-2 gap-2 pt-3">
+          <button onclick="sendOrderViaWhatsApp()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 shadow">
+            <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp Order
+          </button>
+          <button onclick="showServerTrayPrompt()" class="w-full py-2.5 bg-onyx-800 hover:bg-onyx-700 border border-gold-500/40 text-gold-300 rounded-xl font-bold text-xs transition flex items-center justify-center gap-1.5 shadow">
+            <i class="fa-solid fa-hand-holding-hand text-xs"></i> Show to Waiter
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="adminAuthModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-onyx-900 max-w-xs w-full rounded-3xl p-6 shadow-2xl border border-gold-500/40 relative text-center">
+      <button onclick="closeAdminAuthModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-gold-400 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 text-gold-400 flex items-center justify-center mx-auto mb-3">
+        <i class="fa-solid fa-lock text-xl"></i>
+      </div>
+      <h3 class="font-brand font-bold text-lg text-gold-300 uppercase">Staff Admin PIN</h3>
+      <p class="text-xs text-neutral-400 mb-4">Enter cafe manager access PIN to edit prices, stock, and menu items.</p>
+
+      <div class="mb-3">
+        <input 
+          type="password" 
+          id="adminPinInput" 
+          maxlength="8"
+          placeholder="PIN: 1234" 
+          class="w-full tracking-widest text-center text-lg font-bold py-2 rounded-xl border border-gold-500/30 focus:outline-none focus:border-gold-400 bg-onyx-800 text-gold-300"
+          onkeyup="if(event.key === 'Enter') verifyAdminPin()"
+        />
+        <div id="pinErrorMsg" class="hidden text-rose-400 text-xs mt-1.5 font-medium">Incorrect PIN. Try again.</div>
+      </div>
+
+      <p class="text-[10px] text-neutral-400 bg-onyx-800 p-1.5 rounded-lg mb-4">
+        Default passcode: <span class="font-bold text-gold-400">1234</span>
+      </p>
+
+      <button onclick="verifyAdminPin()" class="w-full py-2.5 gold-gradient-bg text-onyx-950 font-bold rounded-xl text-xs hover:brightness-110 transition shadow-gold-sm">
+        Unlock Portal
+      </button>
+    </div>
+  </div>
+
+  <div id="itemFormModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-onyx-900 max-w-lg w-full rounded-3xl p-6 shadow-2xl border border-gold-500/40 relative flex flex-col max-h-[92vh] overflow-y-auto">
+      <button onclick="closeItemFormModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-gold-400 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 id="formModalTitle" class="font-brand font-bold text-lg text-gold-300 uppercase mb-1">Add Menu Item</h3>
+      <p class="text-xs text-neutral-400 mb-4">Configure delicacy details, category, pricing, and dietary badges.</p>
+
+      <form id="menuItemForm" onsubmit="saveMenuItem(event)" class="space-y-3.5 text-xs">
+        <input type="hidden" id="editItemId" value="">
+
+        <div>
+          <label class="block font-semibold text-gold-300 mb-1">Item Title *</label>
+          <input type="text" id="itemName" required placeholder="e.g. Belgian Dark Mocha" class="w-full p-2.5 rounded-xl border border-gold-500/30 focus:outline-none focus:border-gold-400 bg-onyx-800 text-neutral-100">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-gold-300 mb-1">Category *</label>
+            <select id="itemCategory" required class="w-full p-2.5 rounded-xl border border-gold-500/30 focus:outline-none focus:border-gold-400 bg-onyx-800 text-gold-300 font-medium">
+              <option value="Artisan Coffee">Artisan Coffee</option>
+              <option value="Beverages & Coolers">Beverages & Coolers</option>
+              <option value="Fast Food & Bites">Fast Food & Bites</option>
+              <option value="Desserts & Shakes">Desserts & Shakes</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-gold-300 mb-1">Price (₹ INR) *</label>
+            <input type="number" step="1" min="0" id="itemPrice" required placeholder="180" class="w-full p-2.5 rounded-xl border border-gold-500/30 focus:outline-none focus:border-gold-400 bg-onyx-800 text-neutral-100">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-gold-300 mb-1">Description</label>
+          <textarea id="itemDescription" rows="2" placeholder="Flavour profile, ingredients, artisan notes..." class="w-full p-2.5 rounded-xl border border-gold-500/30 focus:outline-none focus:border-gold-400 bg-onyx-800 text-neutral-100"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-gold-300 mb-1">Highlight Badge</label>
+            <select id="itemTag" class="w-full p-2.5 rounded-xl border border-gold-500/30 focus:outline-none focus:border-gold-400 bg-onyx-800 text-neutral-200">
+              <option value="None">None</option>
+              <option value="Bestseller">Bestseller 🔥</option>
+              <option value="Chef Special">Chef Special ⭐</option>
+              <option value="Veg">Pure Veg 🌱</option>
+              <option value="New">New Arrival ✨</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-gold-300 mb-1">Stock Status</label>
+            <div class="flex items-center h-10 gap-2">
+              <input type="checkbox" id="itemAvailable" checked class="w-4 h-4 text-gold-500 rounded focus:ring-gold-400 bg-onyx-800 border-gold-500">
+              <label for="itemAvailable" class="text-neutral-300 font-medium cursor-pointer">Available in Stock</label>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-gold-300 mb-1">Photo Image URL (Optional)</label>
+          <input type="url" id="itemImage" placeholder="https://images.unsplash.com/..." class="w-full p-2.5 rounded-xl border border-gold-500/30 focus:outline-none focus:border-gold-400 bg-onyx-800 text-neutral-100">
+          <p class="text-[10px] text-neutral-500 mt-1">Leaves blank to automatically generate fallback image.</p>
+        </div>
+
+        <div class="pt-3 border-t border-gold-500/20 flex justify-end gap-2">
+          <button type="button" onclick="closeItemFormModal()" class="px-4 py-2 bg-onyx-800 text-neutral-300 font-medium rounded-xl hover:bg-onyx-700 transition">Cancel</button>
+          <button type="submit" class="px-5 py-2 gold-gradient-bg text-onyx-950 font-bold rounded-xl hover:brightness-110 transition shadow-gold-sm">Save Delicacy</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="settingsModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-onyx-900 max-w-sm w-full rounded-3xl p-6 shadow-2xl border border-gold-500/40 relative">
+      <button onclick="closeSettingsModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-gold-400 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="font-brand font-bold text-lg text-gold-300 uppercase mb-1">Cafe Settings</h3>
+      <p class="text-xs text-neutral-400 mb-4">Update WhatsApp receiving number and admin passcode.</p>
+
+      <div class="space-y-3 text-xs mb-5">
+        <div>
+          <label class="block font-semibold text-gold-300 mb-1">WhatsApp Order Number</label>
+          <input type="text" id="settingWhatsappNumber" placeholder="919876543210 (with country code)" class="w-full p-2.5 rounded-xl border border-gold-500/30 bg-onyx-800 text-neutral-200">
+        </div>
+        <div>
+          <label class="block font-semibold text-gold-300 mb-1">Change Admin Passcode</label>
+          <input type="password" id="settingAdminPin" maxlength="8" placeholder="Enter new PIN" class="w-full p-2.5 rounded-xl border border-gold-500/30 bg-onyx-800 text-neutral-200">
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between gap-2 border-t border-gold-500/20 pt-3">
+        <button onclick="resetDefaultMenuConfirm()" class="px-3 py-2 bg-rose-950/60 text-rose-300 border border-rose-500/30 rounded-xl text-xs font-semibold hover:bg-rose-900">
+          Reset Default Menu
+        </button>
+        <button onclick="saveCafeSettings()" class="px-4 py-2 gold-gradient-bg text-onyx-950 font-bold rounded-xl text-xs hover:brightness-110">
+          Save Settings
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none bg-onyx-900 text-neutral-100 px-4 py-3 rounded-2xl shadow-gold-md border border-gold-500/50 flex items-center gap-3">
+    <div id="toastIcon" class="text-gold-400 text-base">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div id="toastMessage" class="text-xs font-medium">Action successful</div>
+  </div>
+
+  <!-- Elegant Footer -->
+  <footer class="bg-onyx-950 border-t border-gold-500/20 py-6 px-4 mt-auto">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
+      <div class="flex items-center gap-2">
+        <span class="font-brand font-bold text-gold-400 tracking-wider">SIPZO SANVEG</span>
+        <span class="text-neutral-600">•</span>
+        <span class="font-display italic text-gold-300/80">Take a sip and then repeat it</span>
+      </div>
+      <div class="flex items-center gap-4 text-neutral-300">
+        <button onclick="openQrModal()" class="hover:text-gold-400 transition flex items-center gap-1">
+          <i class="fa-solid fa-qrcode text-gold-400"></i> Table Standee
+        </button>
+        <button onclick="toggleAdminAuthModal()" class="hover:text-gold-400 transition flex items-center gap-1">
+          <i class="fa-solid fa-lock text-gold-400"></i> Staff Portal
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Initial Seed Menu for SIPZO SANVEG
+    const DEFAULT_SIPZO_MENU = [
+      // 1. ARTISAN COFFEE
+      {
+        id: "sz-c1",
+        name: "Espresso Tonic Royale",
+        category: "Artisan Coffee",
+        price: 195,
+        description: "Double extraction specialty espresso floated over artisan tonic water and a splash of fresh orange essence.",
+        tag: "Bestseller",
+        image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=600&q=80",
+        available: true
+      },
+      {
+        id: "sz-c2",
+        name: "Velvet Hazelnut Frappe",
+        category: "Artisan Coffee",
+        price: 220,
+        description: "Slow-roasted espresso blended with roasted hazelnut butter, rich chilled cream, and dark cocoa shavings.",
+        tag: "Chef Special",
+        image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80",
+        available: true
+      },
+      {
+        id: "sz-c3",
+        name: "Spanish Cortado Crema",
+        category: "Artisan Coffee",
+        price: 175,
+        description: "Balanced ratio of intense ristretto espresso with lightly textured warm condensed milk microfoam.",
+        tag: "Veg",
+        image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80",
+        available: true
+      },
+      {
+        id: "sz-c4",
+        name: "Single-Origin Nitro Cold Brew",
+        category: "Artisan Coffee",
+        price: 210,
+        description: "24-hour steeped Ethiopian beans infused with nitrogen for a velvety head and naturally sweet fruity notes.",
+        tag: "New",
+        image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=600&q=80",
+        available: true
+      },
+
+      // 2. BEVERAGES & COOLERS
+      {
+        id: "sz-b1",
+        name: "Blue Curacao Citrus Sparkler",
+        category: "Beverages & Coolers",
+        price: 165,
+        description: "Tangy Caribbean citrus blend muddled with fresh mint sprigs, lime wedges, and effervescent soda.",
+        tag: "Bestseller",
+        image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
+        available: true
+      },
+      {
+        id: "sz-b2",
+        name: "Wild Berry Hibiscus Cooler",
+        category: "Beverages & Coolers",
+        price: 175,
+        description: "Brewed organic hibiscus flower tisane, crushed strawberries, blackberries, and fresh lime.",
+        tag: "Veg",
+        image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80",
+        available: true
+      },
+      {
+        id: "sz-b3",
+        name: "Matcha Ceremonial Cloud Float",
+        category: "Beverages & Coolers",
+        price: 230,
+        description: "Japanese Uji grade green tea matcha layered over oat milk, crowned with vanilla cold cloud.",
+        tag: "Chef Special",
+        image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80",
+        available: true
+      },
+
+      // 3. FAST FOOD & BITES
+      {
+        id: "sz-f1",
+        name: "Truffle & Parmesan Loaded Fries",
+        category: "Fast Food & Bites",
+        price: 195,
+        description: "Golden crispy skin-on fries tossed in aromatic truffle oil, fresh herbs, grated parmesan, and smoked dip.",
+        tag: "Bestseller",
+        image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80",
+        available: true
+      },
+      {
+        id: "sz-f2",
+        name: "Peri Peri Paneer Sourdough Pizza",
+        category: "Fast Food & Bites",
+        price: 340,
+        description: "Handcrafted 48hr slow-fermented crust, San Marzano tomato reduction, spicy marinated cottage cheese & mozzarella.",
+        tag: "Veg",
+        image: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=600&q=80",
+        available: true
+      },
+      {
+        id: "sz-f3",
+        name: "Gourmet Smoked Cheese Panini",
+        category: "Fast Food & Bites",
+        price: 245,
+        description: "Pressed artisan focaccia filled with smoked cheddar, Roma tomatoes, genovese pesto, and caramelized onions.",
+        tag: "Chef Special",
+        image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80",
+        available: true
+      },
+
+      // 4. DESSERTS & SHAKES
+      {
+        id: "sz-d1",
+        name: "Belgian Dark Chocolate Thickshake",
+        category: "Desserts & Shakes",
+        price: 240,
+        description: "Pure melted 70% dark Belgian chocolate spun with velvety gelato, topped with whipped mousse.",
+        tag: "Bestseller",
+        image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80",
+        available: true
+      },
+      {
+        id: "sz-d2",
+        name: "Classic Sanveg Espresso Tiramisu",
+        category: "Desserts & Shakes",
+        price: 220,
+        description: "Savoiardi ladyfingers steeped in our signature house espresso, folded with mascarpone cream & cocoa.",
+        tag: "Chef Special",
+        image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=600&q=80",
+        available: true
+      }
+    ];
+
+    let menuItems = [];
+    let cart = [];
+    let activeCategory = "All";
+    let activeTag = "all";
+    let searchQuery = "";
+    let isAdminAuthenticated = false;
+    let qrInstance = null;
+
+    const STORAGE_KEY = "sipzo_sanveg_menu";
+    const PIN_KEY = "sipzo_sanveg_pin";
+    const WHATSAPP_KEY = "sipzo_sanveg_whatsapp";
+    const DEFAULT_PIN = "1234";
+    const DEFAULT_WHATSAPP = "919876543210";
+
+    const CATEGORIES = [
+      "All",
+      "Artisan Coffee",
+      "Beverages & Coolers",
+      "Fast Food & Bites",
+      "Desserts & Shakes"
+    ];
+
+    window.onload = function () {
+      loadInitialData();
+      renderCategoryPills();
+      renderMenu();
+      updateCartBadge();
+    };
+
+    function loadInitialData() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          menuItems = JSON.parse(stored);
+        } else {
+          menuItems = [...DEFAULT_SIPZO_MENU];
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(menuItems));
+        }
+      } catch (err) {
+        menuItems = [...DEFAULT_SIPZO_MENU];
+      }
+    }
+
+    function saveMenuData() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(menuItems));
+      } catch (err) {
+        console.error("Storage error:", err);
+      }
+    }
+
+    function getAdminPin() {
+      return localStorage.getItem(PIN_KEY) || DEFAULT_PIN;
+    }
+
+    function getWhatsappNumber() {
+      return localStorage.getItem(WHATSAPP_KEY) || DEFAULT_WHATSAPP;
+    }
+
+    function renderCategoryPills() {
+      const container = document.getElementById("categoryPillContainer");
+      if (!container) return;
+
+      container.innerHTML = CATEGORIES.map(cat => {
+        const isActive = activeCategory === cat;
+        const icon = cat === "Artisan Coffee" ? "fa-mug-hot" :
+                     cat === "Beverages & Coolers" ? "fa-glass-water" :
+                     cat === "Fast Food & Bites" ? "fa-burger" :
+                     cat === "Desserts & Shakes" ? "fa-ice-cream" : "fa-utensils";
+
+        return `
+          <button 
+            onclick="setCategory('${cat}')"
+            class="px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shadow-sm ${
+              isActive 
+                ? 'gold-gradient-bg text-onyx-950 font-bold shadow-gold-sm ring-1 ring-gold-300' 
+                : 'bg-onyx-900 text-neutral-300 hover:text-gold-300 hover:bg-onyx-800 border border-gold-500/20'
+            }"
+          >
+            <i class="fa-solid ${icon} ${isActive ? 'text-onyx-950' : 'text-gold-400'}"></i>
+            ${cat}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function setCategory(cat) {
+      activeCategory = cat;
+      renderCategoryPills();
+      renderMenu();
+    }
+
+    function toggleTagFilter(tag) {
+      activeTag = tag;
+      document.querySelectorAll('.tag-filter-btn').forEach(btn => {
+        const bTag = btn.getAttribute('data-tag');
+        if (bTag === tag) {
+          btn.className = "tag-filter-btn px-2.5 py-1 rounded-lg gold-gradient-bg text-onyx-950 font-bold transition";
+        } else {
+          btn.className = "tag-filter-btn px-2.5 py-1 rounded-lg bg-onyx-800 text-neutral-300 border border-gold-500/20 hover:bg-onyx-700 transition";
+        }
+      });
+      renderMenu();
+    }
+
+    function handleSearch() {
+      const input = document.getElementById("searchInput");
+      const clearBtn = document.getElementById("clearSearchBtn");
+      searchQuery = input.value.trim().toLowerCase();
+      
+      if (searchQuery.length > 0) {
+        clearBtn.classList.remove("hidden");
+      } else {
+        clearBtn.classList.add("hidden");
+      }
+      renderMenu();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById("searchInput");
+      input.value = "";
+      document.getElementById("clearSearchBtn").classList.add("hidden");
+      searchQuery = "";
+      renderMenu();
+    }
+
+    function resetFilters() {
+      activeCategory = "All";
+      activeTag = "all";
+      searchQuery = "";
+      document.getElementById("searchInput").value = "";
+      document.getElementById("clearSearchBtn").classList.add("hidden");
+      renderCategoryPills();
+      toggleTagFilter('all');
+      renderMenu();
+    }
+
+    function renderMenu() {
+      const grid = document.getElementById("menuGrid");
+      const noResults = document.getElementById("noResultsState");
+      const itemsCountDisplay = document.getElementById("itemsCountDisplay");
+      if (!grid) return;
+
+      const filtered = menuItems.filter(item => {
+        const matchesCategory = activeCategory === "All" || item.category === activeCategory;
+        const matchesSearch = searchQuery === "" || 
+                              item.name.toLowerCase().includes(searchQuery) ||
+                              item.description.toLowerCase().includes(searchQuery) ||
+                              item.category.toLowerCase().includes(searchQuery);
+        const matchesTag = activeTag === "all" || 
+                           (activeTag === "Veg" && item.tag === "Veg") ||
+                           (activeTag === "Bestseller" && item.tag === "Bestseller") ||
+                           (activeTag === "Chef Special" && item.tag === "Chef Special");
+        return matchesCategory && matchesSearch && matchesTag;
+      });
+
+      itemsCountDisplay.textContent = `Showing ${filtered.length} of ${menuItems.length} items`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = "";
+        noResults.classList.remove("hidden");
+        return;
+      }
+
+      noResults.classList.add("hidden");
+
+      grid.innerHTML = filtered.map(item => {
+        const isSoldOut = !item.available;
+        const tagBadge = renderTagBadge(item.tag);
+        const placeholderImg = `https://placehold.co/600x400/141418/d4af37?text=${encodeURIComponent(item.name)}`;
+
+        return `
+          <div class="bg-onyx-900 rounded-2xl border border-gold-500/25 overflow-hidden shadow-lg hover:border-gold-400/60 transition-all duration-300 flex flex-col justify-between group ${isSoldOut ? 'opacity-75' : ''}">
+            
+            <!-- Card Image -->
+            <div class="relative h-44 sm:h-48 w-full overflow-hidden bg-onyx-800">
+              <img 
+                src="${item.image || placeholderImg}" 
+                alt="${item.name}" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${isSoldOut ? 'grayscale contrast-125' : ''}"
+                onerror="this.onerror=null; this.src='${placeholderImg}';"
+              />
+
+              <!-- Overlay Badges -->
+              <div class="absolute top-3 left-3 flex flex-wrap gap-1">
+                ${tagBadge}
+              </div>
+
+              <!-- Sold out stamp -->
+              ${isSoldOut ? `
+                <div class="absolute inset-0 bg-onyx-950/70 backdrop-blur-[2px] flex items-center justify-center">
+                  <span class="bg-rose-600/90 text-white font-brand text-xs px-3 py-1 rounded-full uppercase tracking-widest border border-rose-400/40 shadow-lg">
+                    <i class="fa-solid fa-ban mr-1"></i> Sold Out Today
+                  </span>
+                </div>
+              ` : ''}
+
+              <!-- Category Badge -->
+              <span class="absolute bottom-2.5 right-2.5 bg-onyx-950/80 backdrop-blur-md text-gold-300 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-gold-500/30">
+                ${item.category}
+              </span>
+            </div>
+
+            <!-- Card Content -->
+            <div class="p-4 sm:p-5 flex flex-col flex-grow justify-between">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                  <h3 class="font-brand font-bold text-sm sm:text-base text-gold-300 group-hover:text-gold-200 transition">
+                    ${item.name}
+                  </h3>
+                  <span class="font-brand font-bold text-sm sm:text-base text-gold-400 whitespace-nowrap">
+                    ₹${Number(item.price).toFixed(0)}
+                  </span>
+                </div>
+                <p class="text-xs text-neutral-400 leading-relaxed font-light line-clamp-2 mb-4">
+                  ${item.description || 'Specially handcrafted at SIPZO SANVEG.'}
+                </p>
+              </div>
+
+              <!-- Action Bar -->
+              <div class="pt-3 border-t border-onyx-800 flex items-center justify-between">
+                <span class="text-[11px] font-medium ${item.available ? 'text-emerald-400' : 'text-rose-400'}">
+                  ${item.available ? '<i class="fa-solid fa-circle-check text-[10px] mr-1"></i> Ready' : '<i class="fa-solid fa-circle-xmark text-[10px] mr-1"></i> Unavailable'}
+                </span>
+                
+                <button 
+                  onclick="addToCart('${item.id}')"
+                  ${isSoldOut ? 'disabled' : ''}
+                  class="px-3.5 py-1.5 text-xs font-bold rounded-xl flex items-center gap-1.5 transition ${
+                    isSoldOut 
+                      ? 'bg-onyx-800 text-neutral-500 cursor-not-allowed border border-neutral-700' 
+                      : 'gold-gradient-bg text-onyx-950 shadow-gold-sm hover:brightness-110 active:scale-95'
+                  }"
+                >
+                  <i class="fa-solid fa-plus text-xs"></i> Add to Order
+                </button>
+              </div>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderTagBadge(tag) {
+      if (!tag || tag === "None") return "";
+      switch (tag) {
+        case "Bestseller":
+          return `<span class="bg-amber-500/90 text-onyx-950 font-bold text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider shadow border border-amber-300 pulse-glow"><i class="fa-solid fa-fire mr-0.5"></i> Bestseller</span>`;
+        case "Chef Special":
+          return `<span class="bg-purple-600/90 text-white font-bold text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider shadow border border-purple-300"><i class="fa-solid fa-star mr-0.5"></i> Chef Special</span>`;
+        case "Veg":
+          return `<span class="bg-emerald-600/90 text-white font-bold text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider shadow border border-emerald-300"><i class="fa-solid fa-leaf mr-0.5"></i> Pure Veg</span>`;
+        case "New":
+          return `<span class="bg-sky-600/90 text-white font-bold text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider shadow border border-sky-300"><i class="fa-solid fa-sparkles mr-0.5"></i> New</span>`;
+        default:
+          return `<span class="bg-onyx-800 text-gold-300 font-semibold text-[9px] px-2 py-0.5 rounded-full border border-gold-500/30">${tag}</span>`;
+      }
+    }
+
+    function addToCart(itemId) {
+      const item = menuItems.find(i => i.id === itemId);
+      if (!item || !item.available) return;
+
+      const existing = cart.find(ci => ci.id === itemId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          category: item.category,
+          qty: 1
+        });
+      }
+
+      updateCartBadge();
+      showToast(`Added "${item.name}" to your tray`);
+    }
+
+    function updateCartBadge() {
+      const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      const badge = document.getElementById("cartCountBadge");
+      if (badge) {
+        badge.textContent = totalCount;
+      }
+    }
+
+    function openCartModal() {
+      renderCartItems();
+      document.getElementById("cartModal").classList.remove("hidden");
+    }
+
+    function closeCartModal() {
+      document.getElementById("cartModal").classList.add("hidden");
+    }
+
+    function modifyCartQty(itemId, delta) {
+      const itemIndex = cart.findIndex(ci => ci.id === itemId);
+      if (itemIndex === -1) return;
+
+      cart[itemIndex].qty += delta;
+      if (cart[itemIndex].qty <= 0) {
+        cart.splice(itemIndex, 1);
+      }
+      updateCartBadge();
+      renderCartItems();
+    }
+
+    function removeCartItem(itemId) {
+      cart = cart.filter(ci => ci.id !== itemId);
+      updateCartBadge();
+      renderCartItems();
+    }
+
+    function renderCartItems() {
+      const listContainer = document.getElementById("cartItemsList");
+      const emptyState = document.getElementById("cartEmptyPlaceholder");
+      const summarySection = document.getElementById("cartSummarySection");
+
+      if (cart.length === 0) {
+        listContainer.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        summarySection.classList.add("opacity-40", "pointer-events-none");
+        document.getElementById("cartSubtotal").textContent = "₹0";
+        document.getElementById("cartTax").textContent = "₹0";
+        document.getElementById("cartGrandTotal").textContent = "₹0";
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+      summarySection.classList.remove("opacity-40", "pointer-events-none");
+
+      let subtotal = 0;
+
+      listContainer.innerHTML = cart.map(item => {
+        const itemTotal = item.price * item.qty;
+        subtotal += itemTotal;
+
+        return `
+          <div class="py-2.5 flex items-center justify-between gap-2">
+            <div class="flex-grow">
+              <h4 class="font-brand font-semibold text-xs text-gold-300">${item.name}</h4>
+              <p class="text-[11px] text-neutral-400">₹${item.price} each</p>
+            </div>
+            
+            <!-- Controls -->
+            <div class="flex items-center gap-1.5 bg-onyx-800 rounded-lg p-1 border border-gold-500/20">
+              <button onclick="modifyCartQty('${item.id}', -1)" class="w-5 h-5 rounded flex items-center justify-center bg-onyx-700 text-gold-300 text-xs hover:bg-gold-500 hover:text-onyx-950 transition">-</button>
+              <span class="w-5 text-center text-xs font-bold text-neutral-100">${item.qty}</span>
+              <button onclick="modifyCartQty('${item.id}', 1)" class="w-5 h-5 rounded flex items-center justify-center bg-onyx-700 text-gold-300 text-xs hover:bg-gold-500 hover:text-onyx-950 transition">+</button>
+            </div>
+
+            <span class="text-xs font-brand font-bold text-gold-400 w-14 text-right">
+              ₹${itemTotal}
+            </span>
+
+            <button onclick="removeCartItem('${item.id}')" class="text-rose-400 hover:text-rose-300 p-1 text-xs">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      const tax = Math.round(subtotal * 0.05);
+      const grandTotal = subtotal + tax;
+
+      document.getElementById("cartSubtotal").textContent = `₹${subtotal}`;
+      document.getElementById("cartTax").textContent = `₹${tax}`;
+      document.getElementById("cartGrandTotal").textContent = `₹${grandTotal}`;
+    }
+
+    function sendOrderViaWhatsApp() {
+      if (cart.length === 0) return;
+      const table = document.getElementById("tableNumberSelect").value;
+      const note = document.getElementById("orderSpecialNote").value.trim();
+      const grandTotal = document.getElementById("cartGrandTotal").textContent;
+      const phone = getWhatsappNumber();
+
+      let msg = `*NEW ORDER - SIPZO SANVEG*\n“Take a sip and then repeat it”\n--------------------------------\n📍 Location / Table: *${table}*\n\n*Items Ordered:*`;
+      cart.forEach((i, idx) => {
+        msg += `\n${idx + 1}. ${i.name} (x${i.qty}) - ₹${i.price * i.qty}`;
+      });
+      if (note) {
+        msg += `\n\n📝 *Notes:* ${note}`;
+      }
+      msg += `\n\n💰 *Total Amount:* ${grandTotal}`;
+      msg += `\n\nPlease confirm our table order. Thank you!`;
+
+      const encodedMsg = encodeURIComponent(msg);
+      window.open(`https://wa.me/${phone}?text=${encodedMsg}`, '_blank');
+      showToast("Redirecting to WhatsApp to send order...");
+    }
+
+    function showServerTrayPrompt() {
+      const table = document.getElementById("tableNumberSelect").value;
+      showToast(`Tray ready for ${table}. Showing to staff.`);
+    }
+
+    function openQrModal() {
+      document.getElementById("qrModal").classList.remove("hidden");
+      generateQrCodeForTable();
+    }
+
+    function generateQrCodeForTable() {
+      const table = document.getElementById("qrTableSelector").value;
+      document.getElementById("qrStandeeTableLabel").textContent = table === "General" ? "Tabletop Self-Order" : table;
+
+      const currentUrl = new URL(window.location.href);
+      if (table !== "General") {
+        currentUrl.searchParams.set("table", encodeURIComponent(table));
+      } else {
+        currentUrl.searchParams.delete("table");
+      }
+
+      const container = document.getElementById("qrcodeCanvasContainer");
+      container.innerHTML = "";
+
+      qrInstance = new QRCode(container, {
+        text: currentUrl.toString(),
+        width: 170,
+        height: 170,
+        colorDark: "#0e0e11",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    function closeQrModal() {
+      document.getElementById("qrModal").classList.add("hidden");
+    }
+
+    function copyMenuUrl() {
+      const url = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          showToast("Menu URL copied to clipboard!");
+        }).catch(() => {
+          fallbackCopyText(url);
+        });
+      } else {
+        fallbackCopyText(url);
+      }
+    }
+
+    function fallbackCopyText(text) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showToast("Menu URL copied to clipboard!");
+      } catch (err) {
+        showToast("Please copy URL directly from your browser.");
+      }
+      document.body.removeChild(textArea);
+    }
+
+    function printQrStandee() {
+      window.print();
+    }
+
+    function toggleAdminAuthModal() {
+      if (isAdminAuthenticated) {
+        switchView('admin');
+      } else {
+        document.getElementById("adminPinInput").value = "";
+        document.getElementById("pinErrorMsg").classList.add("hidden");
+        document.getElementById("adminAuthModal").classList.remove("hidden");
+        setTimeout(() => document.getElementById("adminPinInput").focus(), 150);
+      }
+    }
+
+    function closeAdminAuthModal() {
+      document.getElementById("adminAuthModal").classList.add("hidden");
+    }
+
+    function verifyAdminPin() {
+      const input = document.getElementById("adminPinInput").value.trim();
+      const expected = getAdminPin();
+
+      if (input === expected) {
+        isAdminAuthenticated = true;
+        closeAdminAuthModal();
+        switchView('admin');
+        showToast("Staff Access Granted!");
+      } else {
+        document.getElementById("pinErrorMsg").classList.remove("hidden");
+      }
+    }
+
+    function logoutAdmin() {
+      isAdminAuthenticated = false;
+      switchView('menu');
+      showToast("Exited Staff Portal.");
+    }
+
+    function switchView(viewName) {
+      const customerView = document.getElementById("customerView");
+      const adminView = document.getElementById("adminView");
+      const adminToggleText = document.getElementById("adminToggleText");
+
+      if (viewName === 'admin' && isAdminAuthenticated) {
+        customerView.classList.add("hidden");
+        adminView.classList.remove("hidden");
+        adminToggleText.textContent = "Menu View";
+        renderAdminDashboard();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        customerView.classList.remove("hidden");
+        adminView.classList.add("hidden");
+        adminToggleText.textContent = "Admin";
+        renderMenu();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function renderAdminDashboard() {
+      updateAdminStats();
+      renderAdminItems();
+    }
+
+    function updateAdminStats() {
+      const total = menuItems.length;
+      const available = menuItems.filter(i => i.available).length;
+      const soldOut = total - available;
+      const categoriesCount = new Set(menuItems.map(i => i.category)).size;
+
+      document.getElementById("adminStatTotal").textContent = total;
+      document.getElementById("adminStatAvailable").textContent = available;
+      document.getElementById("adminStatSoldOut").textContent = soldOut;
+      document.getElementById("adminStatCategories").textContent = categoriesCount;
+    }
+
+    function renderAdminItems() {
+      const tbody = document.getElementById("adminTableBody");
+      const query = (document.getElementById("adminSearchInput")?.value || "").toLowerCase();
+      const catFilter = document.getElementById("adminCategoryFilter")?.value || "all";
+      const stockFilter = document.getElementById("adminStockFilter")?.value || "all";
+
+      const filtered = menuItems.filter(i => {
+        const matchesQuery = i.name.toLowerCase().includes(query) || i.description.toLowerCase().includes(query);
+        const matchesCat = catFilter === "all" || i.category === catFilter;
+        const matchesStock = stockFilter === "all" || 
+                             (stockFilter === "available" && i.available) ||
+                             (stockFilter === "soldout" && !i.available);
+        return matchesQuery && matchesCat && matchesStock;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-8 text-center text-neutral-400">No menu items match the filter criteria.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(item => {
+        return `
+          <tr class="hover:bg-onyx-800/60 transition">
+            <td class="py-3 px-4">
+              <div class="flex items-center gap-3">
+                <img src="${item.image || 'https://placehold.co/80x80/141418/d4af37'}" class="w-10 h-10 rounded-lg object-cover border border-gold-500/25" onerror="this.src='https://placehold.co/80x80/141418/d4af37';">
+                <div>
+                  <div class="font-brand font-bold text-gold-300">${item.name}</div>
+                  <div class="text-[11px] text-neutral-400 line-clamp-1">${item.description}</div>
+                  <div class="mt-0.5">${renderTagBadge(item.tag)}</div>
+                </div>
+              </div>
+            </td>
+            <td class="py-3 px-4 font-medium text-neutral-300">
+              ${item.category}
+            </td>
+            <td class="py-3 px-4 font-bold text-gold-400 font-brand">
+              ₹${Number(item.price).toFixed(0)}
+            </td>
+            <td class="py-3 px-4 text-center">
+              <button 
+                onclick="toggleItemStock('${item.id}')"
+                class="px-2.5 py-1 rounded-full text-[11px] font-semibold inline-flex items-center gap-1 transition ${
+                  item.available 
+                    ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-900' 
+                    : 'bg-rose-950/80 text-rose-300 border border-rose-500/40 hover:bg-rose-900'
+                }"
+              >
+                <i class="fa-solid ${item.available ? 'fa-check' : 'fa-xmark'}"></i>
+                ${item.available ? 'In Stock' : 'Sold Out'}
+              </button>
+            </td>
+            <td class="py-3 px-4 text-right whitespace-nowrap">
+              <button onclick="openEditItemModal('${item.id}')" class="p-1.5 text-gold-400 hover:text-gold-200 mr-2" title="Edit">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button onclick="deleteMenuItem('${item.id}')" class="p-1.5 text-rose-400 hover:text-rose-300" title="Delete">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function toggleItemStock(itemId) {
+      const item = menuItems.find(i => i.id === itemId);
+      if (!item) return;
+      item.available = !item.available;
+      saveMenuData();
+      renderAdminDashboard();
+      showToast(`${item.name} is now ${item.available ? 'In Stock' : 'Sold Out'}.`);
+    }
+
+    function openAddItemModal() {
+      document.getElementById("formModalTitle").textContent = "Add Delicacy";
+      document.getElementById("editItemId").value = "";
+      document.getElementById("itemName").value = "";
+      document.getElementById("itemCategory").value = "Artisan Coffee";
+      document.getElementById("itemPrice").value = "";
+      document.getElementById("itemDescription").value = "";
+      document.getElementById("itemTag").value = "None";
+      document.getElementById("itemImage").value = "";
+      document.getElementById("itemAvailable").checked = true;
+
+      document.getElementById("itemFormModal").classList.remove("hidden");
+    }
+
+    function openEditItemModal(itemId) {
+      const item = menuItems.find(i => i.id === itemId);
+      if (!item) return;
+
+      document.getElementById("formModalTitle").textContent = "Edit Delicacy";
+      document.getElementById("editItemId").value = item.id;
+      document.getElementById("itemName").value = item.name;
+      document.getElementById("itemCategory").value = item.category;
+      document.getElementById("itemPrice").value = item.price;
+      document.getElementById("itemDescription").value = item.description;
+      document.getElementById("itemTag").value = item.tag || "None";
+      document.getElementById("itemImage").value = item.image || "";
+      document.getElementById("itemAvailable").checked = item.available;
+
+      document.getElementById("itemFormModal").classList.remove("hidden");
+    }
+
+    function closeItemFormModal() {
+      document.getElementById("itemFormModal").classList.add("hidden");
+    }
+
+    function saveMenuItem(event) {
+      event.preventDefault();
+      const id = document.getElementById("editItemId").value;
+      const name = document.getElementById("itemName").value.trim();
+      const category = document.getElementById("itemCategory").value;
+      const price = parseFloat(document.getElementById("itemPrice").value);
+      const description = document.getElementById("itemDescription").value.trim();
+      const tag = document.getElementById("itemTag").value;
+      const image = document.getElementById("itemImage").value.trim();
+      const available = document.getElementById("itemAvailable").checked;
+
+      if (!name || isNaN(price)) {
+        showToast("Please provide valid name and price!");
+        return;
+      }
+
+      if (id) {
+        // Edit
+        const index = menuItems.findIndex(i => i.id === id);
+        if (index !== -1) {
+          menuItems[index] = {
+            ...menuItems[index],
+            name,
+            category,
+            price,
+            description,
+            tag,
+            image,
+            available
+          };
+          showToast(`Updated "${name}"`);
+        }
+      } else {
+        // Create
+        const newItem = {
+          id: "sz-" + Date.now(),
+          name,
+          category,
+          price,
+          description,
+          tag,
+          image,
+          available
+        };
+        menuItems.unshift(newItem);
+        showToast(`Added "${name}"`);
+      }
+
+      saveMenuData();
+      closeItemFormModal();
+      renderAdminDashboard();
+    }
+
+    function deleteMenuItem(itemId) {
+      const item = menuItems.find(i => i.id === itemId);
+      if (!item) return;
+
+      menuItems = menuItems.filter(i => i.id !== itemId);
+      saveMenuData();
+      renderAdminDashboard();
+      showToast(`Removed "${item.name}"`);
+    }
+
+    function openSettingsModal() {
+      document.getElementById("settingWhatsappNumber").value = getWhatsappNumber();
+      document.getElementById("settingAdminPin").value = "";
+      document.getElementById("settingsModal").classList.remove("hidden");
+    }
+
+    function closeSettingsModal() {
+      document.getElementById("settingsModal").classList.add("hidden");
+    }
+
+    function saveCafeSettings() {
+      const phone = document.getElementById("settingWhatsappNumber").value.trim();
+      const pin = document.getElementById("settingAdminPin").value.trim();
+
+      if (phone) {
+        localStorage.setItem(WHATSAPP_KEY, phone.replace(/\D/g, ''));
+      }
+      if (pin) {
+        localStorage.setItem(PIN_KEY, pin);
+      }
+      closeSettingsModal();
+      showToast("Cafe settings saved successfully!");
+    }
+
+    function resetDefaultMenuConfirm() {
+      menuItems = [...DEFAULT_SIPZO_MENU];
+      saveMenuData();
+      renderAdminDashboard();
+      closeSettingsModal();
+      showToast("Restored factory default offerings!");
+    }
+
+    function exportMenuData() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(menuItems, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `sipzo_sanveg_menu_${Date.now()}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast("Menu JSON exported successfully!");
+    }
+
+    function importMenuData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            menuItems = parsed;
+            saveMenuData();
+            renderAdminDashboard();
+            showToast(`Imported ${parsed.length} items from backup!`);
+          } else {
+            showToast("Invalid JSON menu file structure.");
+          }
+        } catch (err) {
+          showToast("Failed to parse JSON backup.");
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = "";
+    }
+
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById("toastNotification");
+      const msgElem = document.getElementById("toastMessage");
+      if (!toast || !msgElem) return;
+
+      msgElem.textContent = message;
+      toast.classList.remove("translate-y-24", "opacity-0");
+      toast.classList.add("translate-y-0", "opacity-100");
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add("translate-y-24", "opacity-0");
+        toast.classList.remove("translate-y-0", "opacity-100");
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
